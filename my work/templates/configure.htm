@@ -1,0 +1,148 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>Конфигуратор задания на станциях обработки</title>
+<link rel="stylesheet" type="text/css" href="%url_www%/css/default.css">
+<SCRIPT Language="Javascript">
+<!--
+   
+   
+   
+    
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffd0" TEXT="#000000" LINK="#0000ff" VLINK="#800080" ALINK="#ff0000">
+<FORM name="conf" url='%url_form%' method="post">
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 width="500" >
+<TR class="tb_row">
+  <TD  colspan="4" class="" >
+					<b>Конфигуратор задания на обработчкиах</b>
+  </TD>
+</TR>
+
+
+<!!workstn>
+<input type="hidden" name="mode" value='%mode%'/>
+<TR class="tb_row">
+	 <TD>
+		Рабочая станция    			
+ 	</TD>
+	<TD>
+		Действие
+	</TD>
+	<TD>
+		Задания
+	</TD>
+	<TD>
+		
+	</TD>
+ 		
+</TR>
+<TR class="tb_row">
+	 <TD align="left">
+    		<SELECT name="workstn" class="">%workstn_options%</SELECT>
+ 	</TD>
+	<TD align="left">
+		<SELECT name="rule" class="">%rule_options%</SELECT>
+	</TD>
+	<TD align="left">
+		<SELECT name="tasks" class="">%tasks_options%</SELECT>
+	</TD>
+	<TD align="left">
+		<input type="submit" value="Применить" /></td>
+	</TD>
+ 		
+</TR>
+
+
+<!!task>
+<input type="hidden" name="mode" value='%mode%'/>
+<TR class="tb_row">
+	 <TD>
+		Задание	    			
+ 	</TD>
+	<TD>
+		Действие
+	</TD>
+	<TD>
+		Рабочие станции
+	</TD>
+	<TD>
+		
+	</TD>
+ 		
+</TR>
+<TR class="tb_row">
+	<TD align="left">
+		<SELECT name="task" class="">%tasks_options%</SELECT>
+	</TD>
+	<TD align="left">
+		<SELECT name="rule" class="">%rule_options%</SELECT>
+	</TD>
+	<TD align="left">
+		<SELECT name="workstns" class="">%workstn_options%</SELECT>
+	</TD>
+	<TD align="left">
+		<input type="submit" value="Применить" /></td>
+	</TD>
+ 		
+</TR>
+
+
+
+<!!footer>
+</TABLE>
+</FORM>
+</BODY>
+</HTML>
+
+
+<!!remove_ok>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<meta http-equiv="refresh" content="1; url=%url_cgi%/show.pl">
+<title>Удаление  точечного  объекта</title>
+<link rel="stylesheet" type="text/css" href="%url_www%/css/default.css">
+</head>
+<body BGCOLOR="#ffffd0" TEXT="#000000" LINK="#0000ff" VLINK="#800080" ALINK="#ff0000" ;>
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 width="800" >
+<TR class="tb_hd">
+  <TD>
+					<b>База данных точечных объектов</b>
+  </TD>
+</TR>
+<TR class='remove_ok'>
+<TD>
+Объект успешно удален! Обновление списка объектов...
+</TD>
+</TR>
+
+<!!update_ok>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<meta http-equiv="refresh" content="1; url=%url_cgi%/show.pl">
+<title>Удаление  точечного  объекта</title>
+<link rel="stylesheet" type="text/css" href="%url_www%/css/default.css">
+</head>
+<body BGCOLOR="#ffffd0" TEXT="#000000" LINK="#0000ff" VLINK="#800080" ALINK="#ff0000">
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 width="800" >
+<TR class="tb_hd">
+  <TD>
+					<b>База данных точечных объектов</b>
+  </TD>
+</TR>
+<TR class='remove_ok'>
+<TD>
+Объект успешно обновлен! Обновление списка объектов...
+</TD>
+</TR>

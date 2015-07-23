@@ -1,0 +1,89 @@
+body {
+	background-color: #ffffd0;
+	margin: 2px;
+}
+
+.hd {
+	font-family: Arial;
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	
+}
+.tb_hd {
+	font-family: Arial;
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	font-weight: bold;
+	
+}
+
+.tb_subhd {
+	font-family: Arial;
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	
+}
+
+.tb_row {
+	font-family: Arial;
+	font-size: 13px;
+	color: black;
+	text-align: left;
+
+}
+
+
+.remove_ok {
+	font-family: Arial;
+	font-size: 14px;
+	color: red;
+	text-align: center;
+	
+}
+
+
+.select_task {
+	font-size: 12px;
+	/*width: 400px;*/
+}
+
+.select_proc {
+	font-size: 12px;
+	width: 300px;
+}
+
+.url_now {
+	font-family: Arial;
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+ 	display: inline ;
+}
+
+.url_ {
+	font-family: Arial;
+	font-size: 16px;
+	font-weight: bold;
+	color: blue;
+ 	display: inline ;
+}
+
+.compact_title {
+	font-family: Arial;
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+
+.linkblack {
+	font-family: Verdana;
+	font-size: 14px;
+	color: blue;
+}

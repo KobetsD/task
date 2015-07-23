@@ -1,0 +1,53 @@
+<HEAD><TITLE>Proci</TITLE>
+<LINK REL="STYLESHEET" HREF="/proci/www/css/default.css">
+		<script language="JavaScript">
+			<!--//----------------------Функции в JavaScript-----------------------------
+				//Функция читает значения параметров из URL
+				function getUrlVars() {
+					var vars = {};
+					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+						function(m,key,value) {
+							vars[key] = value;
+						}
+					);
+					return vars;
+				}
+								
+				//Функция конвертирующая спец.код URL в ASCII
+				function qstoASCII (str, p1, offset, s) {
+					//str - совпавшая подстрока
+					//p1 - первая скобка
+					//offset - позиция в тексте для поиска
+					//s - вызывающая строка, т.е строка для поиска
+					return String.fromCharCode(parseInt(p1,16));
+					//parseInt - анализирует целые числа (второй необязательный агрумент принемает основание системы счисления)
+					//String.fromCharCode - создает строку из кода символов
+				}
+				
+				//Функция заполняет текстовое поле параметрами полученными из URL
+				window.onload= function contain() {
+					var cont=getUrlVars()["proc_id"];
+					if (cont!==undefined){
+						cont=cont.replace(/%(..)/g,qstoASCII);//Стр.869 ISBN 978-5-93286-215-5
+						//$1,$2...$99 - текст соответствующий подвыражению с номером от 1 до 99
+						//$& - совпавшая подстрока;
+						//$` - часть строки перед совпавшей подстроки;
+						//$' - часть строки после совпавшей подстроки;
+						
+						procs.location.replace("/proci-cgi/procs.pl?proc_id_choose="+cont);
+					}
+					else{
+						procs.location.replace("/proci-cgi/procs.pl");
+					}
+				}
+			// --> 
+		</script>
+</head>
+<FRAMESET rows="70,*">
+	<FRAME  SRC="/proci-cgi/header.pl?title=procs" NAME="header" >
+	<FRAMESET cols="470,*"  style="">
+		<FRAME  NAME="procs" >
+		<FRAME  NAME="proc_info" >
+	</FRAMESET>
+</FRAMESET>
+

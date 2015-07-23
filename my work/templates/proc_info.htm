@@ -1,0 +1,268 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>Proc information</title>
+<link rel="stylesheet" type="text/css" href="/proci/www/css/default.css">
+<SCRIPT type="text/javascript" SRC="/proci/www/js/form.js"></SCRIPT>
+<SCRIPT type="text/javascript" SRC="/proci/www/js/cookie.js"></SCRIPT>
+<script language=JavaScript type=text/javascript>
+<!--
+	var proc_id = '%proc_id%';
+	var main_form = document.forms.main;
+	
+  	
+  	
+	function init_form_fields(form) {
+        setText( form.proc_id, '%proc_id%' );
+        setText( form.proc_name, '%proc_name%' );
+        setText( form.proc_desc, '%proc_desc%' );
+		//----------Дополнительный функционал (Кобец Д.А.)----------
+        setText( form.Memory, '%Memory%' );
+		//----------------------------------------------------------
+	}
+		
+  	
+
+	function move_option(from_options, to_options ) {
+        var index = from_options.selectedIndex;
+        if( index < 0 ) {
+            alert( "Пожалуйста выберите задание");
+            return false;
+    	}
+        to_options[to_options.length] = new Option( from_options[index].text, from_options[index].value );
+        from_options[index] = null;
+	}
+  
+	function submit_form( form, mode ) {
+        
+                
+        if( form.proc_name.value == "" ) {
+            alert( "Параметр \"Имя\" не определен!" );
+            return false;
+        }
+         
+        if( form.Memory.value == "" ) {
+            alert( "Параметр \"ОЗУ\" не определен!" );
+            return false;
+        }		
+
+        //if( ( mode == "update" ) && form.proc_id.value != proc_id ) {
+        //    alert( "Параметр proc_id не может быть изменен при обновление" );
+        //    return false;
+        //}
+        //if( mode == "add" && form.proc_id.value == proc_id ) {
+        //    alert( "Для создания новой учетной записи нужно изменить параметр proc_id!" );
+        //    return false;
+        //}
+        
+ 		
+        var arr = new Array( );
+        for( i=0; i<form.active_tasks.length; i++ ) {
+    	    arr.push( form.active_tasks.options[i].value );
+        }
+        form.tasks.value = arr.join(',');
+        form.mode.value = mode;
+       	//----------Дополнительный функционал (Кобец Д.А.)----------
+		//form.task_full.value = document.getElementById('task_full_text').value;
+		//----------------------------------------------------------
+		
+		document.location = "%empty_html%";
+	
+	               
+        form.submit();//Отправляет данные формы на вебсервер скрипту, url которого определяетсья параметром action
+    }
+    
+    
+    function submit_remove( form ) {
+        
+        form.mode.value = 'remove';
+	document.location = "%empty_html%";
+	form.submit();
+    }
+	
+    //----------Дополнительный функционал (Кобец Д.А.)----------
+	//Функция добавляет порядковый номер выбранного задания в query string и делает переадресацию
+	function replace_to_tasks(options){
+		options=encodeURIComponent(options);//кодирование значений для передачи в query srting
+		parent.location.replace("../proci/www/tasks.shtml?task_id="+options);
+	}
+	//----------------------------------------------------------
+    //--> 
+   </script>
+
+</head>
+
+<body  onload="init_form_fields(document.forms.main);">
+
+<!!table_caption>
+<FORM name="main" action="%url%" target="procs" method=post>
+<input type="hidden" name="mode" />
+<input type="hidden" name="tasks" />
+<input type="hidden" name="ts" />
+<input type="hidden" name="proc_id" />
+<!---------------------------Дополнительный функционал (Кобец Д.А.)--------------------------------->
+<!--Значения данных строк передаються web серверу методом POST--
+<input type="hidden" name="task_id" value ="%task_id%"/>
+<input type="hidden" name="task_full" value =""/>
+<!-------------------------------------------------------------------------------------------------->	
+
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 width='100%'>
+	<TR class="tb_hd">
+		<TD colspan="3" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<TD>
+						Информация об обработчике
+					</TD>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+
+
+
+<!!proc_info>
+
+	<TR class="tb_row" >
+		<TD align="center" width="10%">
+			Имя:
+		</TD>
+		<TD align="left" width="60%">
+			<input type="text" maxlength="255" style='width: 100%' name="proc_name" class="tb_row"/>
+		</TD>
+		<TD align="center">
+			Текущее состояние:
+			
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="center">
+			Описание:
+		</TD>
+		<TD align="left">
+			<textarea rows="3" style='width: 100%' name="proc_desc" class="tb_row" ></textarea>
+		</TD>
+		<TD rowspan="2" align="center">
+			%current_state%	
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="center">
+			ОЗУ:
+		</TD>
+		<TD align="left">
+			<input type="text" maxlength="255" style='width: 100%' name="Memory" class="tb_row"/>
+		</TD>
+	</TR>
+
+	
+
+
+
+<!!proc_tasks_info>
+	
+	
+	<TR class="tb_hd">
+		<TD  colspan="3" align="center" >
+			Настройка задач для обработчика
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD  colspan="3" align="left" >
+			<table border=0 width="100%">
+				<tr class="tb_row">
+					<td align="center">
+						Задания на обработчике:
+					</td>
+					<td>
+						&nbsp;
+					</td>
+					<td align="center">
+						Остальные задания:
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="2" align="right">
+						<select size="18" name="active_tasks" class="select_task" ondblclick="replace_to_tasks(document.forms.main.active_tasks.value)">
+							%active_tasks_options%
+						</select>
+					</td>
+					<td align="center"  valign="top">
+						<button  type="button" onClick="move_option( document.forms.main.others_tasks.options,document.forms.main.active_tasks.options );" >&lt;</button>
+					</td>
+					<td rowspan="2" align="left">
+						<select size="18" name="others_tasks" class="select_task"  ondblclick="replace_to_tasks(document.forms.main.others_tasks.value)">
+							%others_tasks_options%
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" valign="bottom">
+						<button type="button" onClick="move_option( document.forms.main.active_tasks.options,document.forms.main.others_tasks.options );">&gt;</button>
+					</td>
+				</tr>
+			</table>
+		</TD>
+	</TR>
+<!---------------------------Дополнительный функционал (Кобец Д.А.)---------------------------------
+    <TR align="center">
+		<TD  colspan="3" align="center" >
+			Содержание задания:
+			<br>
+			<textarea cols="60" rows="20" wrap="virtual" id="task_full_text">%task_full_text%</textarea>
+		</TD>
+	</TR>
+<!-------------------------------------------------------------------------------------------------->	
+<!!table_footer_mode_add>
+	<TR class="tb_hd">
+		<TD colspan="3" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<td align="left"><input type="button" value="Сохранить" onClick="submit_form( document.forms.main, 'add');"/></td>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+	
+	
+
+<!!table_footer_mode_update>
+	<TR class="tb_hd">
+		<TD colspan="3" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<td align="left"><input type="button" value="Сохранить" onClick="submit_form( document.forms.main, 'update');"/></td>
+					<td align="right"><input type="button" value="Удалить" onClick="confirm( 'Вы уверены что хотите удалить всю информацию, связанную с этой учетной записью?') && submit_form( document.forms.main, 'remove');"/></td>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+	
+
+
+
+<!!table_end>
+</TABLE>
+</FORM>
+	
+<!!footer>
+<P ALIGN=left>
+<A HREF="%url%" target="_top" ></A>
+</BODY>
+</HTML>
+
+<!!CR>
+<BR>
+
+<!!empty_cell>
+<!!CR><P>
+
+<!!empty_list><b>Обработчик не определен</b><!!CR>
+
+<!!no_such_proc><b>Указанный обработчик не найден, попробуйте еще раз.</b><!!>
+
+
+

@@ -1,0 +1,241 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>Task information</title>
+<link rel="stylesheet" type="text/css" href="/proci/www/css/default.css">
+<SCRIPT type="text/javascript" SRC="/proci/www/js/form.js"></SCRIPT>
+<SCRIPT type="text/javascript" SRC="/proci/www/js/cookie.js"></SCRIPT>
+<script language=JavaScript type=text/javascript>
+<!--
+	var task_id = '%task_id%';
+	var main_form = document.forms.main;
+	
+  	
+  	
+  function init_form_fields(form) {
+        setText( form.task_id,					"%task_id%" );
+        setText( form.task_name,				"%task_name%" );
+        setText( form.task_desc,				"%task_desc%" );
+        setText( form.task_full,				"%task_full%" );
+        setText( form.time_out_update,			"%time_out_update%" );
+		setText( form.rdy,						"%rdy%" );
+		setText( form.inproc,					"%inproc%" );
+		setText( form.finish,					"%finish%" );
+		setText( form.error,					"%error%" );
+		setText( form.directory_last_change,	"%directory_last_change%" );
+  }
+
+  function move_option(from_options, to_options ) {
+        var index = from_options.selectedIndex;
+        if( index < 0 ) {
+            alert( "Пожалуйста выберите обработчик");
+            return false;
+    	}
+        to_options[to_options.length] = new Option( from_options[index].text, from_options[index].value );
+        from_options[index] = null;
+  }
+
+  function submit_form( form, mode ) {
+        
+                
+        //if( form.task_name.value == "" ) {
+            //alert( "Параметр \"Имя\" не определен!" );
+            //return false;
+        //}
+         
+        var arr = new Array( );
+        for( i=0; i<form.active_procs.length; i++ ) {
+    	    arr.push( form.active_procs.options[i].value );
+        }
+        form.procs.value = arr.join(',');
+        form.mode.value = mode;
+       	     
+	document.location = "%empty_html%";
+	
+	               
+        form.submit();
+    }
+    
+    
+    function submit_remove( form ) {
+        
+        form.mode.value = 'remove';
+	document.location = "%empty_html%";
+	form.submit();
+    }
+    
+    
+	//----------Дополнительный функционал (Кобец Д.А.)----------
+	//Функция добавляет порядковый номер выбранного обработчика в query string и делает переадресацию
+	function replace_to_procs(options){
+		options=encodeURIComponent(options);//кодирование значений для передачи в query srting
+		parent.location.replace("../proci/www/procs.shtml?proc_id="+options);
+	}
+	//----------------------------------------------------------
+  
+    //-->
+   </script>
+
+</head>
+
+<body  onload="init_form_fields(document.forms.main);">
+
+<!!table_caption>
+<FORM name="main" action="%url%" target="tasks" method=post>
+<input type="hidden" name="mode" />
+<input type="hidden" name="procs" />
+<input type="hidden" name="ts" />
+<input type="hidden" name="task_id" />
+<input type="hidden" name="rdy" />
+<input type="hidden" name="inproc" />
+<input type="hidden" name="finish" />
+<input type="hidden" name="error" />
+<input type="hidden" name="directory_last_change" />
+
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 width='100%'>
+	<TR class="tb_hd">
+		<TD colspan="2" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<TD>
+						Информация о задании
+					</TD>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+
+
+
+<!!task_info>
+	<TR class="tb_row">
+		<TD align="center" style='width: 20%'>
+			Имя:
+		</TD>
+		<TD align="left" style='width: 90%'>
+			<input type="text" maxlength="255" style='width: 100%'  name="task_name" class="name_text" readonly />
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="center">
+			Описание:
+		</TD>
+		<TD align="left">
+			<textarea rows="2"  name="task_desc" style='width: 100%' class="tb_row" ></textarea>
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="center" >
+			Период появления rdy файлов [часы]:
+		</TD>
+		<TD align="left" >
+			<textarea rows="2"  name="time_out_update" style='width: 100%' class="tb_row" ></textarea>
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="center" colspan='2'>
+			Задание:
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD align="left" colspan='2'>
+			<textarea style='width: 100%' rows="20" cols="105" name="task_full" class="tb_row" wrap="off" ></textarea>
+		</TD>
+	</TR>
+
+<!!task_procs_info>
+	<TR class="tb_hd">
+		<TD  colspan="2" align="center" >
+			Настройка задач для обработчика
+		</TD>
+	</TR>
+	<TR class="tb_row">
+		<TD  colspan="2" align="left" >
+			<table border=0 width="100%">
+				<tr class="tb_row">
+					<td align="center">
+						Обработчики имеющие это задание:
+					</td>
+					<td>
+						&nbsp;
+					</td>
+					<td align="center">
+						Остальные обработчики:
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="2" align="right">
+						<select size="6" name="active_procs" class="select_proc" ondblclick="replace_to_procs(document.forms.main.active_procs.value)">
+						%active_procs_options%
+						</select>
+					</td>
+					<td align="center"  valign="bottom">
+						<button  type="button" onClick="move_option( document.forms.main.others_procs.options,document.forms.main.active_procs.options );" >&lt;</button>
+					</td>
+					<td rowspan="2" align="left">
+						<select size="6" name="others_procs" class="select_proc"  ondblclick="replace_to_procs(document.forms.main.others_procs.value)">
+						%others_procs_options%
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" valign="bottom">
+						<button type="button" onClick="move_option( document.forms.main.active_procs.options,document.forms.main.others_procs.options );">&gt;</button>
+					</td>
+				</tr>
+			</table>
+		</TD>
+	</TR>
+
+<!!table_footer_mode_add>
+	<TR class="tb_hd">
+		<TD colspan="2" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<td align="left"><input type="button" value="Сохранить" onClick="submit_form( document.forms.main, 'add');"/></td>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+	
+	
+
+<!!table_footer_mode_update>
+	<TR class="tb_hd">
+		<TD colspan="2" align="left">
+			<table width="100%" border="0" >
+				<TR class="tb_hd">
+					<td align="left"><input type="button" value="Сохранить" onClick="submit_form( document.forms.main, 'update');"/></td>
+					<td align="right"><input type="button" value="Удалить" onClick="confirm( 'Вы уверены что хотите удалить всю информацию, связанную с этой учетной записью?') && submit_form( document.forms.main, 'remove');"/></td>
+				</TR>
+			</table>
+		</TD>
+	</TR>
+
+
+
+<!!table_end>
+</table>
+</form>
+
+<!!footer>
+<P ALIGN=left>
+<A HREF="%url%" target="_top" ></A>
+</BODY>
+</HTML>
+
+<!!CR>
+<BR>
+
+<!!empty_cell>
+<!!CR><P>
+
+<!!empty_list><b>Обработчик не определен</b><!!CR>
+
+<!!no_such_task><b>Указанный обработчик не найден, попробуйте еще раз.</b><!!>
+
+
+

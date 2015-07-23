@@ -1,0 +1,225 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>Procs</title>
+<link rel="stylesheet" type="text/css" href="/proci/www/css/default.css">
+<SCRIPT type="text/javascript" SRC="/proci/www/js/form.js"></SCRIPT>
+<SCRIPT type="text/javascript" SRC="/proci/www/js/cookie.js"></SCRIPT>
+
+<SCRIPT Language="Javascript">
+    <!--
+    
+    
+    var main_form = document.forms.procs;
+    cur_num = 0;
+    choose_num = %choose_num%;
+    		
+function choose_item( num )   {
+	cur_num = num;
+        link = document.getElementById( "link_"+num );
+        radio = document.getElementById( "radio_"+num );
+	radio.checked = true;
+	parent.proc_info.location = link.href;
+	return true;
+}
+
+		
+		
+		
+function no_item_choosen()  {
+	if( cur_num > 0 ) {
+        	radio = document.getElementById( "radio_"+cur_num );
+ 		if( radio ) {
+			radio.checked = false;
+ 		}
+        }
+}
+
+function init()  {
+	var num;
+	if( choose_num >0 ) {
+		num = choose_num;
+        } else {
+		num = 1;
+        }
+        
+        if( document.getElementById( "link_"+num )) {
+    		choose_item(num);
+        } else {
+		no_item_choosen();
+        	parent.proc_info.location="%empty_html%";
+        }
+}
+		
+function init_form_fields(form) {
+	setOption( form.task_select, '%task_name%' );
+	
+	if ('%alert%' == '1'  ) {
+	     	alert ('Обработчик успешно добавлен!');
+	}
+	
+	if ('%alert%' == '2') {
+	     	alert ('! Обработчик уже существует. !' );
+	}
+	
+	if ('%alert%' == '3'  ) {
+	     	alert ('Информация обновлена!');
+	}
+	
+	if ('%alert%' == '4'  ) {
+	     	alert ('Обработчик успешно удален!');
+	}
+	
+		
+	
+}
+    
+    
+    
+    
+     
+    
+function selected_change(selform)
+    {
+    
+    
+    var href_add='mode=show';
+    
+    selNum = selform.task_select.selectedIndex;
+    Isel = selform.task_select.options[selNum].value;
+    
+    href_add=href_add+'&task_select='+Isel;
+      
+    location.href="%url_proc%?"+href_add;
+  
+}        
+  
+ 
+    
+    
+    
+    //-->
+</script>
+<!---->
+<script type="text/javascript" src="/proci/www/js/jquery-2.0.3.min.js"></script> 
+<script type="text/javascript" src="/proci/www/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+	<!--
+		//---------------Сортировка таблицы-------------
+		//http://www.tablesorter.ru
+		//http://mottie.github.io/tablesorter/docs/index.html
+		$(document).ready(function() { 
+			$("#TasksTable").tablesorter({
+				headers: {
+					0: {sorter:	"text"	},//1ая колонка сортируется в формате "текст"
+					1: {sorter:	"digit"	},//2ая колонка сортируется в формате "число"
+					2: {sorter:	"digit"	},
+					3: {sorter:	"text"	}, },
+				textExtraction: 'complex', //Метод комплекс извлекает данные из вложенных тегов,
+			}); 
+		});
+    -->
+</script>
+<!---->
+</head>
+<body onload="init();init_form_fields(document.forms.procs);">
+
+<!!table_caption>
+<FORM name="procs" method=get>
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 >
+	<TR class="tb_hd">
+		<TD align="center">
+			<br>
+			&nbsp;
+			<SELECT name="task_select" class="select_task" style='width: 145px' >
+				%task_option_list%
+			</SELECT>
+			&nbsp;
+			<br>
+			<br>
+			&nbsp;
+			<input type="button" value="Выбрать Задание" onclick="selected_change(document.forms.procs);"/>
+			&nbsp;
+			<br>
+			&nbsp;
+		</TD>
+		<TD align="center">
+			&nbsp;
+			<button type="button" onclick="no_item_choosen();parent.proc_info.location='%add_proc_uri%';">Добавить<br>новую<br>запись</button>
+			&nbsp;
+		</TD>
+	</TR>
+	<TR>
+   		<TD  colspan="2" class="tb_hd" >
+			<b>Обработчики</b>
+		</TD>
+	</TR>
+	<TR>
+   		<TD  colspan="2" class="tb_hd" >
+
+<!!table_header>
+<TABLE id="TasksTable">
+<thead>
+	<TR class="tb_row">
+		<th align="center" width="210">
+			<b>Имя</b>
+		</th>
+		<th align="center" width="80">
+			<b>ОЗУ</b>
+		</th>
+		<th align="center" width="100">
+			<b>Загрузка за<br>3е суток</b>
+		</th>
+		<th align="center" width="80">
+			<b>Статус</b>
+		</th><!---->
+	</TR>
+</thead> 
+<tbody>
+
+<!!table_row>
+	<TR class="tb_row" bgcolor="%tr_bgcolor%">
+		<TD>
+			<input type="radio" name="proc" id="radio_%num%" onclick="choose_item('%num%');return true;" />
+    		&nbsp;
+    		<A HREF="%update_proc_info_uri%" target="proc_info" class="linkblack" id="link_%num%" onclick="choose_item('%num%');return false;" title="%proc_desc%">%proc_name%</A>&nbsp;
+    	</TD>
+		<TD align="center">
+			%Memory%
+		</TD>
+		<TD align="center">
+			%busy_time%
+		</TD>
+		<TD align="center">
+			%state%
+		</TD><!---->
+	</TR>
+
+<!!table_row_unactive_proc>
+
+
+<!!no_procs>
+	<TR>
+ 		<TD  colspan="2" class="tb_row_centered" >
+			<b>В базе данных нет записей. Необходимо импортировать данные.</b>
+		</TD>
+	</TR>
+
+
+
+<!!table_end>
+					</tbody>
+				</TABLE>
+			</TD>
+		</TR>
+	</TABLE>
+</FORM>
+
+
+<!!footer>
+<P ALIGN=left>
+</BODY>
+</HTML>

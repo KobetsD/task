@@ -1,0 +1,216 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>Tasks</title>
+<link rel="stylesheet" type="text/css" href="/proci/www/css/default.css">
+<SCRIPT type="text/javascript" SRC="/proci/www/js/form.js"></SCRIPT>
+<SCRIPT type="text/javascript" SRC="/proci/www/js/cookie.js"></SCRIPT>
+<SCRIPT Language="Javascript">
+    <!--
+    
+    var main_form = document.forms.tasks;
+    cur_num = 0;
+    choose_num = %choose_num%;
+    		
+	function choose_item( num )   {
+		cur_num = num;
+        link = document.getElementById( "link_"+num );
+        radio = document.getElementById( "radio_"+num );
+		radio.checked = true;
+		parent.task_info.location = link.href;
+		return true;
+	}
+
+	function no_item_choosen()  {
+		if( cur_num > 0 ) {
+        	radio = document.getElementById( "radio_"+cur_num );
+			if( radio ) {
+				radio.checked = false;
+			}
+        }
+	}
+
+	function init()  {
+		var num;
+		if( choose_num >0 ) {
+			num = choose_num;
+        } else {
+			num = 1;
+        }
+        
+        if( document.getElementById( "link_"+num )) {
+    		choose_item(num);
+        } else {
+			no_item_choosen();
+        	parent.task_info.location="%empty_html%";
+        }
+	}
+		
+	function init_form_fields(form) {
+		setOption( form.proc_select, '%proc_name%' );
+	
+		if ('%alert%' == '1'  ) {
+	     	alert ('Задание успешно добавлено!');
+		}
+	
+		if ('%alert%' == '2') {
+	     	alert ('! Задание уже существует. !' );
+		}
+	
+		if ('%alert%' == '3'  ) {
+	     	alert ('Информация обновлена!');
+		}
+	
+		if ('%alert%' == '4'  ) {
+	     	alert ('Задание успешно удалено!');
+		}
+	}
+    
+    function selected_change(selform){
+        
+		var href_add='mode=show';
+    
+		selNum = selform.proc_select.selectedIndex;
+		Isel = selform.proc_select.options[selNum].value;
+    
+		href_add=href_add+'&proc_select='+Isel;
+      
+		location.href="%url_task%?"+href_add;
+	}           
+	
+    //-->
+</script>
+<!---->
+<script type="text/javascript" src="/proci/www/js/jquery-2.0.3.min.js"></script> 
+<script type="text/javascript" src="/proci/www/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+	<!--
+		//---------------Table sorting-------------
+		//http://www.tablesorter.ru
+		//http://mottie.github.io/tablesorter/docs/index.html
+		$(document).ready(function() { 
+			$("#TasksTable").tablesorter({
+				headers: {
+					0: {sorter:	"text"	},//The first column is sorted in 'text' format
+					1: {sorter:	"digit"	},//From second to fifth columns in 'number' format
+					2: {sorter:	"digit"	},
+					3: {sorter:	"digit"	},
+					4: {sorter:	"digit"	}, },
+				textExtraction: 'complex' , //Method 'complex' extracts date from nested tags,
+			}); 
+		});
+
+    -->
+</script>
+<!---->
+</head>
+<body onload="init();init_form_fields(document.forms.tasks);">
+
+<!!table_caption>
+<FORM name="tasks" method=get>
+<TABLE BORDER=1 CELLPADDING=2 CELLSPACING=2 >
+	<TR class="tb_hd">
+		<TD align="center">
+			<br>
+			&nbsp;
+			<SELECT name="proc_select" class="select_proc" style='width: 165px'>
+				%proc_option_list%
+			</SELECT>
+			&nbsp;
+			<br>
+			<br>
+			&nbsp;
+			<input type="button" value="Выбрать Обработчик" onclick="selected_change(document.forms.tasks);"/>
+			&nbsp;
+			<br>
+			&nbsp;
+		</TD>
+		<TD align="center">
+			&nbsp;
+			<button type="button" onclick="no_item_choosen();parent.task_info.location='%add_task_uri%';">Добавить<br>новую запись</button>
+			&nbsp;
+		</TD>
+	</TR>
+	<TR>
+   		<TD  colspan="2" class="tb_hd" >
+			<b>Задания</b>
+		</TD>
+	</TR>
+	<TR>
+		<TD  colspan="2" class="tb_hd" >
+
+
+<!!table_header>
+<TABLE id="TasksTable">
+<thead>
+	<TR class="tb_row">
+		<th align="center" width="300">
+			<b>Имя</b>
+		</th><!---->
+		<th align="center" width="60">
+			<b>Rdy</b>
+		</th>
+		<th align="center" width="60">
+			<b>Inproc</b>
+		</th>
+		<th align="center" width="60">
+			<b>Finish</b>
+		</th>
+		<th align="center" width="60">
+			<b>Error</b>
+		</th>
+	</TR>
+</thead> 
+<tbody>
+
+<!!table_row>
+	<TR class="tb_row" title="%extra_information%" bgcolor="%tr_bgcolor%">
+		<TD>
+			<input type="radio" name="task" id="radio_%num%" onclick="choose_item('%num%');return true;" />
+    		&nbsp;
+    		<A HREF="%update_task_info_uri%" target="task_info" class="linkblack" id="link_%num%" onclick="choose_item('%num%');return false;" title="%task_desc%">%task_name%</A> 
+    	</TD><!---->
+		<TD align="center">
+			%rdy%
+		</TD>
+		<TD align="center" >
+			%inproc%
+		</TD>
+		<TD align="center" >
+			%finish%
+		</TD>
+		<TD align="center" bgcolor="%td_bgcolor_error%">
+			%error%
+		</TD>
+	</TR>
+
+<!!table_row_unactive_task>
+
+<!!no_tasks>
+<TR>
+	<TD  colspan="2" class="tb_subhd" >
+		<b>В базе данных нет записей. Необходимо импортировать данные.</b>
+	</TD>
+</TR>
+
+
+
+<!!table_end>
+					</tbody>
+				</TABLE>
+			</TD>
+		</TR>
+	</TABLE>
+</FORM>
+
+
+
+<!!footer>
+<P ALIGN=left>
+</BODY>
+</HTML>
+
+

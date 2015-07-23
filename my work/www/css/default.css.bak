@@ -1,0 +1,45 @@
+body {
+  background-color: #ffffd0;
+  margin: 2px;
+}
+
+.hd {
+	font-family: Arial;
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	
+}
+.tb_hd {
+	font-family: Arial;
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	
+}
+
+.tb_subhd {
+	font-family: Arial;
+	font-size: 13px;
+	color: black;
+	text-align: center;
+	
+}
+
+.tb_row {
+	font-family: Arial;
+	font-size: 12px;
+	color: black;
+	text-align: left;
+	
+}
+
+
+.remove_ok {
+	font-family: Arial;
+	font-size: 14px;
+	color: red;
+	text-align: left;
+	
+}
+

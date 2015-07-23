@@ -1,0 +1,75 @@
+<!!header>
+<html>
+<head>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+<title>%proci_title%</title>
+<link rel="stylesheet" type="text/css" href="/proci/www/css/default.css">
+<SCRIPT type="text/javascript" SRC="/proci/www/js/form.js"></SCRIPT>
+<SCRIPT type="text/javascript" SRC="/proci/www/js/cookie.js"></SCRIPT>
+<script language=JavaScript type=text/javascript>
+<!--
+
+parent.document.title = "%proci_title%";
+
+	function init_form_fields(form) {
+        if (%alert%==1) {
+        	alert('Файлы успешно записаны');
+        }
+	}
+
+	function submit_form( form, mode ) {
+		form.mode.value = mode;
+		//document.location = "%empty_html%";
+		form.submit();
+	}
+
+//-->
+</script>
+</head>
+<body  onload="init_form_fields(document.forms.main);">
+
+<!!proci_start_header>
+<FORM name="main">
+	<input type="hidden" name="mode" />
+	<input type="hidden" name="title" value='%opt_title%'/>
+	<div style="border:none;">
+		<table border="0" width="100%">
+			<tr>
+				<td align="left">
+					<div class="compact_title" style="display:inline;">%title%</div>
+				</td>
+				<td align="right">
+					<input type="button" value="Экспортировать всю информацию в файлы" onClick="submit_form( document.forms.main, 'export');"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tr>
+
+<!!urls>
+							<td align='center' width='150'>
+								<a href='%url%' title='%title%' target="_top" class='%class%'>%name%</a>
+							</td><!--<a> - Ссылка
+											href	- Указывает путь к дкументу
+											title	- Краткое описание элемента при наведении на него курсора
+											target	- Параметр загрузки страницы (_top - Открывает документ в текущем окне браузера)
+											class	- Стиль визуального отображения в .css-->
+
+<!!footer>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</FORM>
+</body>
+</html>
+
+<!!titles>start,Интерфейс управления заданиями на обработчиках,
+procs,Настройка обработчиков,
+tasks,Редактирование заданий,
+statistics,Статистика заданий,
