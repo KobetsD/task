@@ -1,0 +1,48 @@
+/*Стили данной таблицы пререкрываются стилями в самом .htm документе*/
+
+body {
+	background-color: #CCFFCC;/*Задает цвет фона для body*/
+	/*background-image: url("../images/image_01.png");/*Фоновое Изображение*/
+	/*Background-repeat: repeat-y;/*Повторять фоновое изображение по Оси y*/
+	/*Background-attachment: scroll;/*Изображение прокручивается вместе со страницей*/
+	/*background-position: 50% 50%;/*Рисунок расположен по центру и на четверть экрана сверху (так же возможно задавать расстояние в пикселах и см))*/
+	  
+	margin-top: 100px;/*Поля элемента*/
+	margin-right: 40px;
+	margin-bottom: 10px;
+	margin-left: 70px;
+	
+	font-family:Calibri;
+	font-style: italic;/*Способначертания (курсив)*/
+	font-weight: bold;/*Вес шрифта*/
+	font-size: 120%;/*Размер шрифта*/ 
+}
+
+input {
+	font-family:Calibri;
+	font-style: italic;/*Способначертания (курсив)*/
+	font-weight: bold;/*Вес шрифта*/
+	font-size: 120%;/*Размер шрифта*/ 
+}
+
+table {
+	width: 400px; /* Ширина Таблицы */
+	text-align:center;
+	
+	font-family:Calibri;
+	font-style: italic;/*Способначертания (курсив)*/
+	font-weight: bold;/*Вес шрифта*/
+	font-size: 120%;/*Размер шрифта*/ 
+	
+	border-style:solid;
+	border-color:black;
+	border-width:2px;
+}
+
+td {/*Стиль ячеек таблицы*/
+	width: 50%; /* Ширина ячейки */
+	height: 100px; /* ВЫсота ячейки */
+	padding: 10px; /* Поля вокруг содержимого ячеек */
+	border: 1px solid black; /* Граница вокруг ячеек */
+}
+/**/	

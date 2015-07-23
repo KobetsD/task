@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"><!--
+			1.HTTP-EQUIV="Content-type" - указывает тип документа и кодировку символов(естественно кодировка самого документа должна совпадать с той, в которой документ будет воспринематься браузером!!!)-->		
+		<title>JavaScript</title><!--Заголовок документа (обычно ограничиваются 60ю символами)-->
+		<link rel="stylesheet" type="text/css" href="./style/style.css"><!--Указывает на связь с внешни файлом (в данном случае на таблицу стилей .css)
+			1.rel="stylesheet" - указывает тип внешнего файла (в данном случае .css файл)
+			2.type - указывает MIME тип документа
+			3.href - URL внешнего файла-->
+		<script language="JavaScript">
+			<!--//----------------------Функции в JavaScript------------------------------
+				function ColorCalc() {//Определение противоположного цвета
+					Color=document.formColor.textColor.value;
+					AntiColor=0XFFFFFF-Number("0X"+Color);//Number(str) - перевод строки str в число
+					AntiColor=AntiColor.toString(16)
+					if (0<AntiColor.length<6){//Метод length определяет длинну строки
+						for (var i=1;AntiColor.length-6!=0;i++){
+							AntiColor="0"+AntiColor;
+						}
+					} else {
+						AntiColor="error";
+					}
+					document.formColor.textAntiColor.value=AntiColor;//Метод toString класса Number, принимет необязательный аргумент определяющий основание системы счисления для преобразования
+					document.all.tdColor.style.background="#"+Color;//Доступ к свойству фонового цвета ячейки с id=tdColor
+					document.all.tdAntiColor.style.background="#"+AntiColor;
+				}
+			// -->
+		</script>
+	</head> 
+	<body>
+		<br><h2 align="center">---Определитель противоположных цветов---</h2>
+		<form name="formColor">
+			<table align="center">
+				<tr>
+					<td>
+						Цвет
+						<br>
+						<input type="text" name="textColor" size="6" maxlength="6" value="ff00aa">
+					</td>
+					<td>
+						Негатив
+						<br>
+						<input type="text" name="textAntiColor" size="6" maxlength="6" value="" readonly>
+					</td>
+				</tr>
+				<tr><!--Высота строки 100 пикселей-->
+					<td id="tdColor"><h1></h1></td><!--Теги <h1></h1> говорят что должен быть текст в формате заголовка №1, но так как между тегами пустота - ячейка пустая, хотя и с содержимым-->
+					<td id="tdAntiColor"><h1></h1></td>
+				</tr>
+			</table>
+			<br>
+			<center>
+				<input type="button" name="ButColor" value="Рассчитать" onClick="ColorCalc()">
+			</center>
+		</form>
+	</body>
+</html>
+<!---->
