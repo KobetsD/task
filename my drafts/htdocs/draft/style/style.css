@@ -18,7 +18,7 @@ body {
 	font-size: 120%;/*Размер шрифта*/ 
 }
 
-input {
+INPUT {
 	font-family:Calibri;
 	font-style: italic;/*Способначертания (курсив)*/
 	font-weight: bold;/*Вес шрифта*/

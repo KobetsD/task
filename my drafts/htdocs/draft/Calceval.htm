@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"><!--
+			1.HTTP-EQUIV="Content-type" - указывает тип документа и кодировку символов(естественно кодировка самого документа должна совпадать с той, в которой документ будет воспринематься браузером!!!)-->		
+		<title>Калькулятор</title><!--Заголовок документа (обычно ограничиваются 60ю символами)-->
+		<link rel="stylesheet" type="text/css" href="./style/style.css"><!--Указывает на связь с внешни файлом (в данном случае на таблицу стилей .css)
+			1.rel="stylesheet" - указывает тип внешнего файла (в данном случае .css файл)
+			2.type - указывает MIME тип документа
+			3.href - URL внешнего файла-->
+		<script language="JavaScript">
+			<!--//----------------------Функции в JavaScript-----------------------------
+				//Функция читает значения параметров из URL (Стр.372 ISBN 978-5-93286-215-5)
+				function urlArgs() {
+					var args = {};							//Создает пустой объект
+					var query=location.search.substring(1);	//Возвращает строку запроса после знака "?"
+					var pairs=query.split(";");				//Разбивает query string по знакам ";"
+					for(var i=0;i<pairs.length;i++){		//Для каждого фрагмента
+						var pos=pairs[i].indexOf('=');		//Отыскать пару имя значение
+						if (pos==-1) continue;				//Не найдено - пропустить
+						var name=pairs[i].substring(0,pos);	//Извлеч имя
+						var value=pairs[i].substring(pos+1);//Извлеч значение
+						value=decodeURIComponent(value);	//преобразовать значение
+						args[name]=value;					//Сохранить в виде свойства
+					}
+					return args;							//Вернуть полученные аргументы
+				}
+				
+				//Функция заполняет текстовое поле параметрами полученными из URL(выполняеться после загрузки документа)
+				window.onload = function window_contain() {
+					var str=urlArgs();
+					if (str.textfield1!==undefined){
+						document.formCalk1.textfield1.value=str.textfield1;
+					}
+					if (str.textfield2!==undefined){	
+						document.formCalk2.textfield2.value=str.textfield2;
+					}
+				}
+
+				function Calculation() {
+					var comand=document.formCalk1.textfield1.value;
+					comand=encodeURIComponent(comand);		//кодирование занчений чтоб их можно было передать в query srting
+					location.replace("http://localhost/cgi-bin/draft/Calceval.cgi?textfield1="+comand);
+				}
+			// -->
+		</script>
+	</head> 
+	<body>
+		<br><h2 align="center">---Калькулятор---</h2>
+		<form   name="formCalk1">
+			Выражение:
+			<br>
+			<INPUT class="class1" TYPE="text" NAME="textfield1" SIZE="90">
+		</form>
+		<form name="formCalk2">
+			Результат:
+			<br>
+			<INPUT class="class1" TYPE="text" NAME="textfield2" SIZE="90">
+			<br>
+			<input type="button" name="ButColor" value="Рассчитать" onClick="Calculation()">
+		</form>
+	</body>
+</html>
+<!--ACTION="/cgi-bin/Calceval.cgi"-->
