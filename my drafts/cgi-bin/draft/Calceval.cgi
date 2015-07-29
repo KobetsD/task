@@ -25,6 +25,6 @@ $value=eval $value;#Исполнение полученного выражени
 #$value=$q->referer."?".$q->query_string;#Полный URL с которого пришел пользователь
 $q->param("textfield2"=>$value);#Присваивание в параметр textfield результат работы кода
 
-my $URL='http://localhost/draft/Calceval.htm?'.$q->query_string;#Сшивание итогового URL
+my $URL='http://193.232.9.138/draft/Calceval.htm?'.$q->query_string;#Сшивание итогового URL
 
 print $q->redirect($URL);#Перенаправление обратно
