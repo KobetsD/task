@@ -1,0 +1,126 @@
+<!!header>
+<html>
+	<head>
+		<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1251">
+		<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
+		<title>Plane list</title>		
+		<link rel="stylesheet" type="text/css" href="/task_1/css/default.css">
+		
+<!!script> 
+		<script type="text/javascript">
+		<!--
+		
+			function submit_form( form ) {
+                form.input_out.value	= document.getElementById('out').checked;
+                form.input_in.value 	= document.getElementById('in').checked;
+                form.submit();
+			}
+		
+			function init_form_fields(form) {
+				document.getElementById('out').checked	= %out%;
+				document.getElementById('in' ).checked	= %in%;
+			}
+
+			function dosubscription( id ) {
+                window.open("http://193.232.9.138/cgi-bin/task_1/task_1.pl?id="+id, "subscription", "height=600,width=600,status=no,toolbar=no,menubar=no,location=no,resizable=yes,scrollbars=yes");
+            }
+
+
+		-->
+		</script>
+
+<!!Body>
+	</head>
+	<body onload="init_form_fields(document.forms.Plane_list);">
+	<FORM name="Plane_list" action="/cgi-bin/task_1/task_1.pl" target="_self" method=post>
+		<input type="hidden" name="input_out" />
+		<input type="hidden" name="input_in" />
+		<input type="hidden" name="id" />
+<!!checkbox>
+			<input type="checkbox" id="out" onclick="submit_form( document.forms.Plane_list );" />
+			<b>Вылет</b>
+			<br>
+			<input type="checkbox" id="in" onclick="submit_form( document.forms.Plane_list );" />
+			<b>Прилет</b>
+			<br>
+			<hr align="center" color="black" size=2 width=90%>
+			<br>
+
+<!!TABLE_head>
+						<TABLE id="TasksTable" align="center">
+							<thead>
+								<TR class="tb_row">
+									<th align="center" width="5%">
+										<b>Тип рейса</b>
+									</th><!---->
+									<th align="center" width="5%">
+										<b>Номер рейса</b>
+									</th>
+									<th align="center" width="10%">
+										<b>Авиокомпания</b>
+									</th>
+									<th align="center" width="10%">
+										<b>Логотип авиокомпании</b>
+									</th>
+									<th align="center" width="5%">
+										<b>Тип воздушного судна</b>
+									</th>
+									<th align="center" width="15%">
+										<b>Аэропорт назначения</b>
+									</th>
+									<th align="center" width="10%">
+										<b>Плановое время</b>
+									</th>
+									<th align="center" width="10%">
+										<b>Статус рейса</b>
+									</th>
+									<th align="center" width="10%">
+										<b>Примечание</b>
+									</th>
+								</TR>
+							</thead> 
+							<tbody>
+<!!TABLE_TR>
+
+								<TR class="tb_row"  bgcolor="%tr_bgcolor%" onclick="dosubscription(%id%)">
+									<TD  align="center" >
+										%flight_type% 
+									</TD>
+									<TD align="center" >
+										%flight%
+									</TD>
+									<TD align="center" >
+										%airline%
+									</TD>
+									<TD align="center" >
+										<img src="%airline_logo%" >
+									</TD>
+									<TD align="center" >
+										%aircraft_type%
+									</TD>
+									<TD align="center" >
+										%destination%
+									</TD>
+									<TD align="center" >
+										%time_plan%
+									</TD>
+									<TD align="center" >
+										%status%
+									</TD>
+									<TD align="center">
+										%note%
+									</TD>
+								</TR>
+
+<!!TABLE_end>
+							</tbody>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+
+<!!end>
+	</FORM>
+	</BODY>
+</HTML>
